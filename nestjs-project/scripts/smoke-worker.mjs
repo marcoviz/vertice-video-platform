@@ -2,7 +2,7 @@
 // The only direct DB writes are disposable test fixtures and their cleanup.
 import 'reflect-metadata';
 import assert from 'node:assert/strict';
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
@@ -22,47 +22,159 @@ const db = new DataSource({
 });
 const storage = new storageModule.StorageService();
 const base = 'http://nestjs-api:3000';
+const partBytes = 64 * 1024 * 1024;
+const targetBytes = Number(process.env.SMOKE_VIDEO_BYTES ?? partBytes + 1024);
+assert.ok(
+  Number.isSafeInteger(targetBytes) &&
+    targetBytes > partBytes &&
+    targetBytes <= 10_000_000_000,
+  'SMOKE_VIDEO_BYTES must exceed 64 MiB and be at most 10 GB decimal',
+);
+const startedAt = Date.now();
 const userId = randomUUID();
 const channelId = randomUUID();
 const directory = await mkdtemp(join(tmpdir(), 'vertice-smoke-'));
 const jwt = new JwtService({ secret: process.env.JWT_SECRET });
-const token = jwt.sign({ sub: userId, email: `${userId}@example.test`, jti: randomUUID() }, { expiresIn: '5m' });
+const token = jwt.sign(
+  { sub: userId, email: `${userId}@example.test`, jti: randomUUID() },
+  { expiresIn: '2h' },
+);
 
 async function post(path, body, status) {
   const response = await fetch(`${base}${path}`, {
     method: 'POST',
-    headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+    headers: {
+      authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
     body: JSON.stringify(body),
   });
-  assert.equal(response.status, status, `${path}: ${await response.clone().text()}`);
+  assert.equal(
+    response.status,
+    status,
+    `${path}: ${await response.clone().text()}`,
+  );
   return response.json();
 }
 
 try {
   await db.initialize();
-  await db.query('INSERT INTO users(id,email,password,is_confirmed) VALUES($1,$2,$3,true)', [userId, `${userId}@example.test`, 'unused-test-fixture']);
-  await db.query('INSERT INTO channels(id,user_id,name,nickname) VALUES($1,$2,$3,$4)', [channelId, userId, 'Separate worker smoke', channelId]);
+  await db.query(
+    'INSERT INTO users(id,email,password,is_confirmed) VALUES($1,$2,$3,true)',
+    [userId, `${userId}@example.test`, 'unused-test-fixture'],
+  );
+  await db.query(
+    'INSERT INTO channels(id,user_id,name,nickname) VALUES($1,$2,$3,$4)',
+    [channelId, userId, 'Separate worker smoke', channelId],
+  );
   const filename = join(directory, 'sample.mp4');
-  await promisify(execFile)('ffmpeg', ['-nostdin', '-v', 'error', '-f', 'lavfi', '-i', 'testsrc=size=160x120:rate=10', '-t', '1', '-pix_fmt', 'yuv420p', '-c:v', 'libx264', filename]);
-  const bytes = await readFile(filename);
-  const draft = await post('/videos/uploads', { title: 'Separate worker smoke', filename: 'sample.mp4', contentType: 'video/mp4', byteSize: bytes.length }, 201);
-  const signed = await post(`/videos/${draft.id}/upload-parts`, { partNumbers: [1] }, 200);
-  const upload = await fetch(signed[0].url, { method: 'PUT', body: bytes, headers: { 'content-length': String(bytes.length) } });
-  assert.equal(upload.status, 200);
-  await post(`/videos/${draft.id}/complete`, { parts: [{ partNumber: 1, etag: upload.headers.get('etag') }] }, 202);
+  await promisify(execFile)('ffmpeg', [
+    '-nostdin',
+    '-v',
+    'error',
+    '-f',
+    'lavfi',
+    '-i',
+    'testsrc=size=160x120:rate=10',
+    '-t',
+    '1',
+    '-pix_fmt',
+    'yuv420p',
+    '-c:v',
+    'libx264',
+    filename,
+  ]);
+  const sample = await readFile(filename);
+  // A valid ISO BMFF `free` atom pads the synthetic one-second MP4. The bytes
+  // really cross S3 multipart and original download; this is an I/O/size test,
+  // not a benchmark of ten gigabytes of encoded frames. No large source file
+  // is written, and at most one 64 MiB upload part is allocated at a time.
+  const paddingBytes = targetBytes - sample.length;
+  const paddingHeader = Buffer.alloc(paddingBytes > 0xffffffff ? 16 : 8);
+  paddingHeader.writeUInt32BE(
+    paddingHeader.length === 16 ? 1 : paddingBytes,
+    0,
+  );
+  paddingHeader.write('free', 4, 'ascii');
+  if (paddingHeader.length === 16)
+    paddingHeader.writeBigUInt64BE(BigInt(paddingBytes), 8);
+  const prefix = Buffer.concat([sample, paddingHeader]);
+  const draft = await post(
+    '/videos/uploads',
+    {
+      title: 'Separate worker smoke',
+      filename: 'sample.mp4',
+      contentType: 'video/mp4',
+      byteSize: targetBytes,
+    },
+    201,
+  );
+  assert.equal(draft.partSize, partBytes);
+  assert.equal(draft.partCount, Math.ceil(targetBytes / partBytes));
+  const uploadedHash = createHash('sha256');
+  const parts = [];
+  for (let first = 1; first <= draft.partCount; first += 16) {
+    const numbers = Array.from(
+      { length: Math.min(16, draft.partCount - first + 1) },
+      (_, index) => first + index,
+    );
+    const signed = await post(
+      `/videos/${draft.id}/upload-parts`,
+      { partNumbers: numbers },
+      200,
+    );
+    for (const part of signed) {
+      const offset = (part.partNumber - 1) * partBytes;
+      const bytes = Buffer.alloc(Math.min(partBytes, targetBytes - offset));
+      if (offset < prefix.length)
+        prefix.copy(
+          bytes,
+          0,
+          offset,
+          Math.min(prefix.length, offset + bytes.length),
+        );
+      uploadedHash.update(bytes);
+      const upload = await fetch(part.url, {
+        method: 'PUT',
+        body: bytes,
+        headers: { 'content-length': String(bytes.length) },
+      });
+      assert.equal(upload.status, 200, `Upload part ${part.partNumber}`);
+      const etag = upload.headers.get('etag');
+      assert.ok(etag, `ETag for part ${part.partNumber}`);
+      parts.push({ partNumber: part.partNumber, etag });
+      if (part.partNumber % 10 === 0 || part.partNumber === draft.partCount)
+        console.log(
+          `Uploaded ${part.partNumber}/${draft.partCount} parts (${Math.min(targetBytes, offset + bytes.length)} bytes)`,
+        );
+    }
+  }
+  const expectedHash = uploadedHash.digest('hex');
+  await post(`/videos/${draft.id}/complete`, { parts }, 202);
 
   let video;
-  for (let attempt = 0; attempt < 120; attempt++) {
-    [video] = await db.query('SELECT status,duration_seconds FROM videos WHERE id=$1', [draft.id]);
+  const processingDeadline =
+    Date.now() + Number(process.env.SMOKE_TIMEOUT_MS ?? 600_000);
+  while (Date.now() < processingDeadline) {
+    [video] = await db.query(
+      'SELECT status,duration_seconds FROM videos WHERE id=$1',
+      [draft.id],
+    );
     if (['ready', 'failed'].includes(video?.status)) break;
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
   }
-  assert.equal(video?.status, 'ready', 'Independent worker must consume and finish the upload');
+  assert.equal(
+    video?.status,
+    'ready',
+    'Independent worker must consume and finish the upload',
+  );
   assert.ok(video.duration_seconds > 0);
   const metadata = await fetch(`${base}/videos/${draft.slug}`);
   assert.equal(metadata.status, 200);
   assert.equal(Object.hasOwn(await metadata.json(), 'source_key'), false);
-  const stream = await fetch(`${base}/videos/${draft.slug}/stream`, { headers: { range: 'bytes=0-31' } });
+  const stream = await fetch(`${base}/videos/${draft.slug}/stream`, {
+    headers: { range: 'bytes=0-31' },
+  });
   assert.equal(stream.status, 206);
   assert.equal((await stream.arrayBuffer()).byteLength, 32);
   const thumbnail = await fetch(`${base}/videos/${draft.slug}/thumbnail`);
@@ -70,14 +182,28 @@ try {
   assert.match(thumbnail.headers.get('content-type'), /image\/jpeg/);
   const download = await fetch(`${base}/videos/${draft.slug}/download`);
   assert.equal(download.status, 200);
-  assert.deepEqual(Buffer.from(await download.arrayBuffer()), bytes);
-  console.log('PASS: separate API + video-worker containers; multipart, queue, FFmpeg, thumbnail, Range and original download');
+  assert.equal(Number(download.headers.get('content-length')), targetBytes);
+  const downloadedHash = createHash('sha256');
+  let downloadedBytes = 0;
+  for await (const chunk of download.body) {
+    downloadedHash.update(chunk);
+    downloadedBytes += chunk.length;
+  }
+  assert.equal(downloadedBytes, targetBytes);
+  assert.equal(downloadedHash.digest('hex'), expectedHash);
+  console.log(
+    `PASS: separate API + video-worker containers; ${targetBytes} physical bytes in ${parts.length} multipart parts; queue, FFmpeg, thumbnail, Range and original download SHA-256=${expectedHash}; elapsed=${Date.now() - startedAt}ms`,
+  );
 } finally {
   if (db.isInitialized) {
-    const rows = await db.query('SELECT source_key,playback_key,thumbnail_key,upload_id FROM videos WHERE channel_id=$1', [channelId]);
+    const rows = await db.query(
+      'SELECT source_key,playback_key,thumbnail_key,upload_id FROM videos WHERE channel_id=$1',
+      [channelId],
+    );
     for (const row of rows) {
       if (row.upload_id) await storage.abort(row.source_key, row.upload_id);
-      for (const key of [row.source_key, row.playback_key, row.thumbnail_key]) if (key) await storage.remove(key);
+      for (const key of [row.source_key, row.playback_key, row.thumbnail_key])
+        if (key) await storage.remove(key);
     }
     await db.query('DELETE FROM channels WHERE id=$1', [channelId]);
     await db.query('DELETE FROM users WHERE id=$1', [userId]);

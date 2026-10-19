@@ -10,6 +10,6 @@ Execute research → plan-context → plan-validate → plan-resolve → plan-bu
 Os agentes de leitura originais em `.claude/agents/` servem de contratos de papel para pesquisa e revisão. O orquestrador delegou a fase a um subagente; a implementação desta fase ocorre sequencialmente para manter dependências entre SIs.
 
 ## Estado da fase 03
-`nestjs-project/src/videos/`: multipart direto S3/MinIO, propriedade pelo canal, tabela videos, publicação assíncrona via outbox na própria linha, BullMQ/Redis, worker FFmpeg independente. Estados draft → processing → ready/failed; endpoints em `docs/phases/phase-03-videos/phase-03-videos.md`.
+`nestjs-project/src/videos/`: multipart direto S3/MinIO, propriedade pelo canal, tabela videos, publicação assíncrona via outbox na própria linha, BullMQ/Redis, worker FFmpeg independente. O reconciliador consulta jobs reais em lotes paginados, no startup e a cada 2 s, com escrita condicional e retenção terminal; detalhes em `docs/tasks/task-video-reliability/`. Estados draft → processing → ready/failed; endpoints em `docs/phases/phase-03-videos/phase-03-videos.md`.
 
 Configuração MCP de projeto em `.codex/config.toml`. Não alterar configurações globais. Se context7 não estiver disponível na sessão, usar docs oficiais e registrar a limitação; não afirmar que a ferramenta foi executada. Planejamento clean não significa testes aprovados.

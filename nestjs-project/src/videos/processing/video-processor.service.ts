@@ -13,7 +13,7 @@ export class VideoProcessorService {
     private readonly storage: StorageService,
     private readonly ffmpeg: FfmpegService,
   ) {}
-  async process(videoId: string, lastAttempt: boolean): Promise<void> {
+  async process(videoId: string): Promise<void> {
     const video = await this.repo.find(videoId);
     if (!video) throw new Error('Video does not exist');
     if (video.status === 'ready') return;
@@ -32,7 +32,7 @@ export class VideoProcessorService {
       const thumbnailKey = `channels/${video.channel_id}/${video.id}/thumbnail.jpg`;
       await this.storage.putFile(playbackKey, output, 'video/mp4');
       await this.storage.putFile(thumbnailKey, thumbnail, 'image/jpeg');
-      await this.repo.update(video.id, {
+      await this.repo.updateProcessing(video.id, {
         status: 'ready',
         playback_key: playbackKey,
         thumbnail_key: thumbnailKey,
@@ -44,13 +44,6 @@ export class VideoProcessorService {
         },
         error_code: null,
       });
-    } catch (error) {
-      if (lastAttempt)
-        await this.repo.update(video.id, {
-          status: 'failed',
-          error_code: 'PROCESSING_FAILED',
-        });
-      throw error;
     } finally {
       if (directory) await rm(directory, { recursive: true, force: true });
     }

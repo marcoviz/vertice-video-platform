@@ -23,6 +23,7 @@ import { StorageService } from '../src/videos/storage.service';
 import { FfmpegService } from '../src/videos/processing/ffmpeg.service';
 import { VideoProcessorService } from '../src/videos/processing/video-processor.service';
 import { VideoQueueService } from '../src/videos/processing/video-queue.service';
+import { VideoQueueWorkerService } from '../src/videos/processing/video-queue-worker.service';
 
 const execute = promisify(execFile);
 jest.setTimeout(120_000);
@@ -37,7 +38,12 @@ describe('Videos (real HTTP, Postgres, MinIO, BullMQ/Redis and FFmpeg)', () => {
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       imports: [AppModule, VideosModule],
-      providers: [FfmpegService, VideoProcessorService, VideoQueueService],
+      providers: [
+        FfmpegService,
+        VideoProcessorService,
+        VideoQueueService,
+        VideoQueueWorkerService,
+      ],
     }).compile();
     app = module.createNestApplication();
     app.useGlobalPipes(
@@ -73,6 +79,7 @@ describe('Videos (real HTTP, Postgres, MinIO, BullMQ/Redis and FFmpeg)', () => {
     app.get<ThrottlerStorageService>(ThrottlerStorage).onApplicationShutdown(),
   );
   afterAll(async () => {
+    if (app) await app.get(VideoQueueWorkerService).onModuleDestroy();
     if (queue) await queue.onModuleDestroy();
     if (db?.isInitialized && channelId) {
       const storage = app.get(StorageService);

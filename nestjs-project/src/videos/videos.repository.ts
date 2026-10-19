@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, IsNull, Repository } from 'typeorm';
+import { DataSource, MoreThan, Repository } from 'typeorm';
 import type { EntityManager } from 'typeorm';
 import { Video } from './entities/video.entity';
 import { Channel } from '../channels/entities/channel.entity';
 import { VideoException } from './video.exception';
+import { VIDEO_RECONCILE_BATCH } from './video.constants';
 
 @Injectable()
 export class VideosRepository {
@@ -65,11 +66,17 @@ export class VideosRepository {
   async update(id: string, patch: Partial<Video>): Promise<void> {
     await this.repo.update(id, patch);
   }
-  async pending(): Promise<Video[]> {
+  async updateProcessing(id: string, patch: Partial<Video>): Promise<void> {
+    await this.repo.update({ id, status: 'processing' }, patch);
+  }
+  async processingBatch(afterId?: string): Promise<Video[]> {
     return this.repo.find({
-      where: { status: 'processing', queued_at: IsNull() },
-      take: 50,
-      order: { created_at: 'ASC' },
+      where: {
+        status: 'processing',
+        ...(afterId ? { id: MoreThan(afterId) } : {}),
+      },
+      take: VIDEO_RECONCILE_BATCH,
+      order: { id: 'ASC' },
     });
   }
 }

@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-19",
+  "source_commit": "7e1553ecb8b89010395a6a92dff1d198abcf8ab8",
+  "ci": {
+    "run_id": "39336804550",
+    "job_id": "118348228106",
+    "url": "https://github.com/marcoviz/vertice-video-platform/actions/runs/39336804550",
+    "job_url": "https://github.com/marcoviz/vertice-video-platform/actions/runs/39336804550/job/118348228106",
+    "runner": "ubuntu-24.04",
+    "status": "completed",
+    "conclusion": "success",
+    "evidence_source": "Complete CI log reviewed; successful run conclusion confirmed through the GitHub connector by the coordinator.",
+    "full_log_review": "complete",
+    "artifact": {
+      "id": "12226819012",
+      "url": "https://github.com/marcoviz/vertice-video-platform/actions/runs/39336804550/artifacts/12226819012",
+      "retention_days": 1
+    },
+    "reviewed_log": {
+      "workspace_path": "work/fixes-final/video-ci-success.log",
+      "bytes": 314006,
+      "sha256": "9fe82e0ded78537fd6d1d341cc60c962e57ab6ed29cc579d8ccb7f31759d843f"
+    }
+  },
+  "definition_of_done": {
+    "status": "complete",
+    "reason": "Complete Docker validation and both physical smokes passed; successful CI conclusion and complete log reviewed."
+  },
+  "checks": {
+    "unit_and_integration": {
+      "status": "passed",
+      "passed": 183,
+      "failed": 0,
+      "suites_passed": 29
+    },
+    "e2e": {
+      "status": "passed",
+      "passed": 56,
+      "failed": 0,
+      "suites_passed": 4
+    },
+    "typescript": {
+      "status": "passed",
+      "command": "tsc --noEmit"
+    },
+    "prettier": {
+      "status": "passed",
+      "scope": "video sources, video e2e and smoke script"
+    },
+    "eslint": {
+      "status": "passed",
+      "errors": 0,
+      "warnings": 23,
+      "warnings_note": "Inherited warnings; no automatic fixes in the validation container."
+    }
+  },
+  "physical_smoke": {
+    "fixture": "One-second synthetic MP4 followed by a valid free atom; tests physical I/O and size, not 10 GB of encoded frames.",
+    "standard": {
+      "status": "passed",
+      "bytes": 67109888,
+      "multipart_parts": 2,
+      "sha256": "703b03ea1aac04f31d255d7637c000ab6c525e73787f6d9ef85f022ccbae8756",
+      "elapsed_ms": 3373,
+      "checks": [
+        "separate API and worker containers",
+        "queue",
+        "FFmpeg",
+        "thumbnail",
+        "Range",
+        "original download size and SHA-256"
+      ]
+    },
+    "extended_10gb": {
+      "status": "passed",
+      "target_bytes": 10000000000,
+      "expected_multipart_parts": 150,
+      "full_part_bytes": 67108864,
+      "full_parts": 149,
+      "last_part_bytes": 779264,
+      "docker_free_bytes_at_start": 103504568320,
+      "required_free_bytes_exclusive": 25000000000,
+      "verified_bytes": 10000000000,
+      "sha256": "2a4e3b292513fb843dca3a3dc8edebca82070f00b9033f1c0f4d5f26b22346be",
+      "elapsed_ms": 176798,
+      "resource_summary": {
+        "method": "Docker stats monitor started with the extended smoke: 40 samples per container before PASS and one finishing during cleanup. Maxima are sampled values, not absolute peaks.",
+        "nestjs_api": {
+          "sample_count": 41,
+          "maximum_sampled_memory_mib": 161.3
+        },
+        "video_worker": {
+          "sample_count": 41,
+          "maximum_sampled_memory_mib": 238.3
+        }
+      },
+      "verified_multipart_parts": 150
+    }
+  },
+  "previous_ci_attempts": [
+    {
+      "run_id": "39334256414",
+      "url": "https://github.com/marcoviz/vertice-video-platform/actions/runs/39334256414",
+      "conclusion": "failure",
+      "cause": "Concurrent DROP TABLE operations deadlocked in the migration fixture; incomplete cleanup caused subsequent schema failures.",
+      "passed_tests": 173,
+      "failed_tests": 10,
+      "fix_commit": "7797540308cb353409cf202cbf3c5688bdc8228c"
+    },
+    {
+      "run_id": "39336145385",
+      "url": "https://github.com/marcoviz/vertice-video-platform/actions/runs/39336145385",
+      "source_commit": "7797540308cb353409cf202cbf3c5688bdc8228c",
+      "conclusion": "failure",
+      "cause": "ESLint prettier/prettier rule failed on migration fixture formatting after tests and TypeScript passed.",
+      "passed_unit_and_integration_tests": 183,
+      "passed_e2e_tests": 56,
+      "eslint_errors": 1,
+      "eslint_warnings": 23,
+      "fix_commit": "7e1553ecb8b89010395a6a92dff1d198abcf8ab8"
+    }
+  ],
+  "local_validation": {
+    "status": "interrupted_by_reboot",
+    "full_suite_pass_claimed": false
+  },
+  "context7": {
+    "original_implementation": "Unavailable; official web documentation used as fallback.",
+    "reliability_revision": "Consulted before dependent changes; installed-version differences reviewed.",
+    "reference": "library-refs.md"
+  }
+}

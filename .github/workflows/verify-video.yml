@@ -1,0 +1,74 @@
+name: Verify video platform
+
+on:
+  push:
+    branches: [main, dev, feature/video-final-fixes]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-video-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out the exact revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Reclaim disposable runner SDK space
+        run: |
+          set -euo pipefail
+          # These preinstalled SDKs are unused: all application tools run in Docker.
+          # Only fixed SDK paths on this disposable GitHub-hosted runner are removed.
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          df -h /
+          docker version
+          docker compose version
+
+      - name: Run the complete Docker verification
+        env:
+          VERIFY_10GB_IF_SPACE: "1"
+          SMOKE_VIDEO_BYTES: "67109888"
+        run: |
+          set -euo pipefail
+          bash nestjs-project/scripts/verify-compose.sh 2>&1 | tee "$RUNNER_TEMP/verify-video-full.log"
+
+      - name: Preserve concise validation evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p validation-logs
+          if [[ -f "$RUNNER_TEMP/verify-video-full.log" ]]; then
+            tail -c 5242880 "$RUNNER_TEMP/verify-video-full.log" > validation-logs/verify-video.log
+            grep -E 'PASS:|SKIP:|RUN: physical|Test Suites:|Tests:|RESOURCE_SAMPLE| memory=' "$RUNNER_TEMP/verify-video-full.log" > validation-logs/results.txt || true
+          fi
+          {
+            printf 'Commit: %s\nRun: %s/%s/actions/runs/%s\n' "$GITHUB_SHA" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
+            printf 'Runner: ubuntu-24.04; Docker tests; no external service secrets.\n'
+          } > validation-logs/revision.txt
+          cat validation-logs/revision.txt >> "$GITHUB_STEP_SUMMARY"
+          if [[ -f validation-logs/results.txt ]]; then
+            cat validation-logs/results.txt >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload small text logs only
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: video-validation-${{ github.run_id }}
+          path: |
+            validation-logs/*.txt
+            validation-logs/*.log
+          if-no-files-found: warn
+          retention-days: 1
+          compression-level: 9

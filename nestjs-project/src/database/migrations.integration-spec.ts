@@ -35,12 +35,11 @@ describe('Database migrations (integration)', () => {
 
     await dataSource.initialize();
 
-    await Promise.all([
-      ...MANAGED_TABLES.map((table) =>
-        dataSource.query(`DROP TABLE IF EXISTS "${table}" CASCADE`),
-      ),
-      dataSource.query(`DROP TABLE IF EXISTS "migrations" CASCADE`),
-    ]);
+    // CASCADE locks related tables too. Concurrent drops through the pool can
+    // deadlock, even though Jest runs the suites sequentially.
+    for (const table of [...MANAGED_TABLES, 'migrations']) {
+      await dataSource.query(`DROP TABLE IF EXISTS "${table}" CASCADE`);
+    }
     await dataSource.query(
       'DROP TYPE IF EXISTS "verification_tokens_type_enum"',
     );
@@ -49,8 +48,12 @@ describe('Database migrations (integration)', () => {
   afterAll(async () => {
     // The second test undoes the last migration, leaving the videos table missing.
     // Re-apply so the shared DB is fully migrated when subsequent suites run.
-    await dataSource.runMigrations();
-    await dataSource.destroy();
+    if (!dataSource?.isInitialized) return;
+    try {
+      await dataSource.runMigrations();
+    } finally {
+      await dataSource.destroy();
+    }
   });
 
   it('should apply all migrations and create all five tables', async () => {
