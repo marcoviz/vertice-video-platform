@@ -1,7 +1,7 @@
 {
-  "name": "nestjs-project",
+  "name": "vertice-video-api",
   "version": "0.0.1",
-  "description": "",
+  "description": "API e processamento assíncrono de vídeos da plataforma Vértice",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -18,16 +18,20 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:integration": "jest --runInBand --testRegex=\"\\.integration-spec\\.ts$\"",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config ./test/jest-e2e.json --runInBand",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:run": "npm run typeorm -- migration:run -d src/database/data-source.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/database/data-source.ts",
     "migration:generate": "npm run typeorm -- migration:generate -d src/database/data-source.ts",
     "migration:create": "npm run typeorm -- migration:create",
     "seed": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' src/database/seeds/seed.ts",
-    "openapi:export": "ts-node -r tsconfig-paths/register src/openapi-export.ts"
+    "openapi:export": "ts-node -r tsconfig-paths/register src/openapi-export.ts",
+    "test:unit": "jest --runInBand --testRegex=\".*\\.spec\\.ts$\"",
+    "start:worker": "node dist/video-worker.js"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.1152.0",
+    "@aws-sdk/s3-request-presigner": "3.1152.0",
     "@nestjs-modules/mailer": "^2.3.4",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
@@ -38,9 +42,12 @@
     "@nestjs/throttler": "^6.5.0",
     "@nestjs/typeorm": "^11.0.1",
     "argon2": "^0.41.1",
+    "bullmq": "6.3.16",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.4",
+    "dotenv": "18.0.8",
     "handlebars": "^4.7.9",
+    "ioredis": "5.4.2",
     "joi": "^18.1.2",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
@@ -55,6 +62,7 @@
     "@nestjs/testing": "^11.0.1",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/ms": "2.1.0",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.18.0",
@@ -91,5 +99,6 @@
     "setupFiles": [
       "dotenv/config"
     ]
-  }
+  },
+  "packageManager": "pnpm@11.25.0"
 }

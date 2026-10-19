@@ -1,0 +1,7 @@
+# Project-local configuration; trusted project only. No global writes required.
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+
+[mcp_servers.postgres]
+command = "docker"
+args = ["compose", "-f", "nestjs-project/compose.yaml", "exec", "-T", "nestjs-api", "npx", "-y", "@modelcontextprotocol/server-postgres", "postgresql://streamtube:streamtube@db/streamtube"]

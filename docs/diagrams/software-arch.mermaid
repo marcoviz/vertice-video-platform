@@ -1,28 +1,32 @@
 C4Container
-    title Container diagram for StreamTube
+    title Container diagram for Vértice — StreamTube phase 03
 
     Person(anonUser, "Anonymous User", "Watches videos without login")
     Person(authUser, "Authenticated User", "Watches, uploads, comments and subscribes")
 
     Container_Boundary(c1, "StreamTube") {
         Container(frontend, "Frontend", "Next.js", "Platform interface")
+        Container(client, "Upload client", "Node.js CLI", "Uploads multipart bytes directly")
         Container(api, "API", "Nest.js", "Business rules and authentication")
         Container(worker, "Video Worker", "FFmpeg", "Processes videos in background")
         ContainerDb(db, "Database", "PostgreSQL", "Users, channels, videos, comments, likes")
         ContainerDb(storage, "Object Storage", "S3 or MinIO", "Video files and thumbnails")
-        ContainerQueue(queue, "Message Queue", "TBD", "Enqueues video processing jobs")
+        ContainerQueue(queue, "Message Queue", "BullMQ / Redis", "Enqueues video processing jobs")
     }
 
     System_Ext(email, "Email Service", "Account confirmation and password recovery")
 
     Rel(anonUser, frontend, "Uses", "HTTPS")
     Rel(authUser, frontend, "Uses", "HTTPS")
+    Rel(authUser, client, "Uploads a video")
+    Rel(client, api, "Creates draft / signs / completes", "JSON / HTTP")
+    Rel(client, storage, "Uploads signed parts", "S3 / HTTP")
     Rel(frontend, api, "Calls", "REST")
     Rel(frontend, storage, "Streams", "HTTPS")
 
     Rel(api, db, "Reads/Writes")
-    Rel(api, storage, "Uploads")
-    Rel(api, queue, "Publishes job")
+    Rel(api, storage, "Signs / verifies / completes multipart")
+    Rel(worker, queue, "Dispatches pending DB outbox rows")
     Rel(api, email, "Sends email", "SMTP")
 
     Rel(queue, worker, "Delivers job")
@@ -45,7 +49,7 @@ C4Container
     UpdateRelStyle(frontend, storage, $textColor="#B0BEC5", $lineColor="#B0BEC5", $offsetX="-60", $offsetY="10")
     UpdateRelStyle(api, db, $textColor="#B0BEC5", $lineColor="#B0BEC5", $offsetX="-40")
     UpdateRelStyle(api, storage, $textColor="#B0BEC5", $lineColor="#B0BEC5", $offsetY="10")
-    UpdateRelStyle(api, queue, $textColor="#B0BEC5", $lineColor="#B0BEC5", $offsetX="40")
+    UpdateRelStyle(worker, queue, $textColor="#B0BEC5", $lineColor="#B0BEC5", $offsetX="40")
     UpdateRelStyle(api, email, $textColor="#B0BEC5", $lineColor="#B0BEC5")
     UpdateRelStyle(queue, worker, $textColor="#B0BEC5", $lineColor="#B0BEC5", $offsetX="40")
     UpdateRelStyle(worker, storage, $textColor="#B0BEC5", $lineColor="#B0BEC5", $offsetX="40", $offsetY="10")

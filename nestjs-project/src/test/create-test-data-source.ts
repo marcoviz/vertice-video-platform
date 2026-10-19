@@ -1,15 +1,18 @@
-import { DataSource, EntitySchema, MigrationInterface } from 'typeorm';
+import { Channel } from '../channels/entities/channel.entity';
+import { Video } from '../videos/entities/video.entity';
+import { DataSource } from 'typeorm';
+import type { DataSourceOptions, MigrationInterface } from 'typeorm';
 
 interface TestDataSourceOptions {
-  synchronize?: boolean;
+  synchronize?: false;
   migrations?: (new () => MigrationInterface)[];
 }
 
 export function createTestDataSource(
-  entities: (Function | string | EntitySchema<any>)[],
+  entities: DataSourceOptions['entities'],
   options: TestDataSourceOptions = {},
 ): DataSource {
-  const { synchronize = true, migrations } = options;
+  const { synchronize = false, migrations } = options;
   return new DataSource({
     type: 'postgres',
     host: process.env.DB_HOST ?? 'db',
@@ -17,7 +20,14 @@ export function createTestDataSource(
     username: process.env.DB_USERNAME ?? 'streamtube',
     password: process.env.DB_PASSWORD ?? 'streamtube',
     database: process.env.DB_DATABASE ?? 'streamtube',
-    entities,
+    // Channel now has the inverse videos relation. Preserve isolated older
+    // phase fixtures by including its metadata dependency automatically.
+    entities:
+      Array.isArray(entities) &&
+      entities.includes(Channel) &&
+      !entities.includes(Video)
+        ? [...entities, Video]
+        : entities,
     synchronize,
     ...(migrations !== undefined && { migrations, migrationsRun: false }),
   });
