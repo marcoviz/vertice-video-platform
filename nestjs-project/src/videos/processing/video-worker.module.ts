@@ -7,6 +7,7 @@ import { VideosModule } from '../videos.module';
 import { FfmpegService } from './ffmpeg.service';
 import { VideoProcessorService } from './video-processor.service';
 import { VideoQueueService } from './video-queue.service';
+import { VideoQueueWorkerService } from './video-queue-worker.service';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -27,6 +28,11 @@ import { VideoQueueService } from './video-queue.service';
     }),
     VideosModule,
   ],
-  providers: [FfmpegService, VideoProcessorService, VideoQueueService],
+  providers: [
+    FfmpegService,
+    VideoProcessorService,
+    VideoQueueService,
+    VideoQueueWorkerService,
+  ],
 })
 export class VideoWorkerModule {}

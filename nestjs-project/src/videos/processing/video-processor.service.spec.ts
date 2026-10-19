@@ -11,7 +11,7 @@ jest.mock('node:fs/promises', () => ({
 import { mkdtemp, rm } from 'node:fs/promises';
 describe('VideoProcessorService retry policy', () => {
   let processor: VideoProcessorService;
-  const repo = { find: jest.fn(), update: jest.fn() };
+  const repo = { find: jest.fn(), updateProcessing: jest.fn() };
   const storage = { download: jest.fn(), putFile: jest.fn() };
   const ffmpeg = { probe: jest.fn(), render: jest.fn() };
   beforeEach(async () => {
@@ -40,9 +40,9 @@ describe('VideoProcessorService retry policy', () => {
     processor = module.get(VideoProcessorService);
   });
   it('publishes ready only after both objects are stored', async () => {
-    await processor.process('v', false);
+    await processor.process('v');
     expect(storage.putFile).toHaveBeenCalledTimes(2);
-    expect(repo.update).toHaveBeenCalledWith(
+    expect(repo.updateProcessing).toHaveBeenCalledWith(
       'v',
       expect.objectContaining({ status: 'ready', duration_seconds: 2 }),
     );
@@ -53,30 +53,25 @@ describe('VideoProcessorService retry policy', () => {
   });
   it('does no work for already ready jobs', async () => {
     repo.find.mockResolvedValue({ status: 'ready' });
-    await processor.process('v', true);
+    await processor.process('v');
     expect(storage.download).not.toHaveBeenCalled();
   });
   it('keeps processing on transient failures and propagates the failure', async () => {
     storage.download.mockRejectedValue(new Error('network'));
-    await expect(processor.process('v', false)).rejects.toThrow('network');
-    expect(repo.update).not.toHaveBeenCalled();
+    await expect(processor.process('v')).rejects.toThrow('network');
+    expect(repo.updateProcessing).not.toHaveBeenCalled();
     expect(rm).toHaveBeenCalled();
   });
-  it('marks failed on the last unsuccessful attempt', async () => {
-    storage.download.mockRejectedValue(new Error('network'));
-    await expect(processor.process('v', true)).rejects.toThrow('network');
-    expect(repo.update).toHaveBeenCalledWith('v', {
-      status: 'failed',
-      error_code: 'PROCESSING_FAILED',
-    });
+  it('rejects a terminal failed video without publishing media', async () => {
+    repo.find.mockResolvedValue({ status: 'failed' });
+    await expect(processor.process('v')).rejects.toThrow('not pending');
+    expect(storage.download).not.toHaveBeenCalled();
+    expect(repo.updateProcessing).not.toHaveBeenCalled();
   });
-  it('records terminal failure even when the temporary disk is unavailable', async () => {
+  it('propagates disk failure for the queue to determine the terminal state', async () => {
     jest.mocked(mkdtemp).mockRejectedValueOnce(new Error('disk full'));
-    await expect(processor.process('v', true)).rejects.toThrow('disk full');
-    expect(repo.update).toHaveBeenCalledWith('v', {
-      status: 'failed',
-      error_code: 'PROCESSING_FAILED',
-    });
+    await expect(processor.process('v')).rejects.toThrow('disk full');
+    expect(repo.updateProcessing).not.toHaveBeenCalled();
     expect(storage.download).not.toHaveBeenCalled();
   });
 });

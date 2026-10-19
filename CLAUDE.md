@@ -107,4 +107,4 @@ If a library is involved and there is uncertainty, documentation lookup is manda
 If the documentation returned does not match the installed version, flag the discrepancy before proceeding.
 
 ## Fase 03 — vídeos
-Implementação em `nestjs-project/src/videos/`, worker em `src/video-worker.ts`. Multipart direto MinIO, validação de partes, outbox em videos, fila BullMQ, FFmpeg/ffprobe, MP4 faststart e thumbnail. Contratos e estado real da validação em `docs/phases/phase-03-videos/`. Codex lê `AGENTS.md`; MCP de projeto em `.codex/config.toml`.
+Implementação em `nestjs-project/src/videos/`, worker em `src/video-worker.ts`. Multipart direto MinIO, validação de partes, outbox em videos, fila BullMQ, FFmpeg/ffprobe, MP4 faststart e thumbnail. Contratos e validação original em `docs/phases/phase-03-videos/`; revisão de reconciliação e multipart físico em `docs/tasks/task-video-reliability/`. Codex lê `AGENTS.md`; MCP de projeto em `.codex/config.toml`.
