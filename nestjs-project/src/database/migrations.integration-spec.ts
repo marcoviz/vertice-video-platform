@@ -40,7 +40,9 @@ describe('Database migrations (integration)', () => {
     for (const table of [...MANAGED_TABLES, 'migrations']) {
       await dataSource.query(`DROP TABLE IF EXISTS "${table}" CASCADE`);
     }
-    await dataSource.query('DROP TYPE IF EXISTS "verification_tokens_type_enum"');
+    await dataSource.query(
+      'DROP TYPE IF EXISTS "verification_tokens_type_enum"',
+    );
   });
 
   afterAll(async () => {

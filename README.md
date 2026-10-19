@@ -63,4 +63,4 @@ A fase foi conduzida com Codex em execução contínua, com pesquisa oficial, co
 - `nestjs-project/src/videos/`: domínio, repository, adapter S3 e processamento.
 - `nestjs-project/src/database/migrations/1792400000000-CreateVideos.ts`: schema da fase.
 
-A implementação da fase foi escrita a partir do enunciado e da base oficial, sem consulta a código de soluções de alunos. A fase inicial passou por `feature/video-pipeline` → `dev` → `main`. A revisão usa `feature/video-final-fixes`, criada de `dev` após fast-forward para a entrega anterior. A comparação posterior com a referência de aluno foi uma revisão, não a origem do código da fase.
+A Fase 03 foi desenvolvida neste projeto a partir do enunciado e do starter oficial StreamTube, que fornece as Fases 01–02 e o frontend. O histórico segue Git Flow: a implementação inicial foi integrada por `feature/video-pipeline` → `dev` → `main`. A revisão de confiabilidade está em `feature/video-final-fixes`, criada a partir de `dev` após seu alinhamento por fast-forward com a entrega anterior em `main`.
