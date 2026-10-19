@@ -1,0 +1,13 @@
+19/10/2026 — scripts/verify-compose.sh, exit 0
+Trechos da saída real (serviços e dados de teste descartáveis):
+
+Test Suites: 28 passed, 28 total
+Tests:       176 passed, 176 total
+Test Suites: 4 passed, 4 total
+Tests:       56 passed, 56 total
+✖ 23 problems (0 errors, 23 warnings)
+PASS: separate API + video-worker containers; multipart, queue, FFmpeg, thumbnail, Range and original download
+ffmpeg version 5.1.9-0+deb12u1 Copyright (c) 2000-2026 the FFmpeg developers
+
+TypeScript: exit 0. ESLint: exit 0, 23 avisos nos mocks da base.
+OpenAPI exportado em container após a suíte: exit 0, nove caminhos /videos.

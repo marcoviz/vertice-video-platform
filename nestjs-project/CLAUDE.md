@@ -159,3 +159,7 @@ NestJS with standard module structure. Source lives in `src/`, compiled output i
 ## REST Conventions
 
 This is a RESTful API. All endpoints must follow standard REST conventions — correct HTTP methods, proper status codes, plural resource nouns, and consistent URL structure. Details are enforced via rules on controller files.
+
+
+## Vídeos
+`src/videos/` contém VideosModule, VideosRepository, StorageService e processamento. `src/video-worker.ts` inicia worker independente BullMQ/Redis. Compose inclui storage (MinIO), storage-init, queue (Redis), video-worker e migrate. O contrato dos endpoints, autorização e estados está em `../docs/phases/phase-03-videos/phase-03-videos.md`. Não declarar fase concluída sem o DoD; `scripts/verify-compose.sh` executa a verificação real isolada.

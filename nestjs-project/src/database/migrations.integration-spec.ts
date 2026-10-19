@@ -1,3 +1,5 @@
+import { Video } from '../videos/entities/video.entity';
+import { CreateVideos1792400000000 } from './migrations/1792400000000-CreateVideos';
 import { DataSource } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { Channel } from '../channels/entities/channel.entity';
@@ -12,6 +14,7 @@ const MANAGED_TABLES = [
   'channels',
   'refresh_tokens',
   'verification_tokens',
+  'videos',
 ];
 
 describe('Database migrations (integration)', () => {
@@ -19,12 +22,13 @@ describe('Database migrations (integration)', () => {
 
   beforeAll(async () => {
     dataSource = createTestDataSource(
-      [User, Channel, RefreshToken, VerificationToken],
+      [User, Channel, RefreshToken, VerificationToken, Video],
       {
         synchronize: false,
         migrations: [
           CreateUsersAndChannels1775687773260,
           CreateAuthTokens1777579850478,
+          CreateVideos1792400000000,
         ],
       },
     );
@@ -37,19 +41,22 @@ describe('Database migrations (integration)', () => {
       ),
       dataSource.query(`DROP TABLE IF EXISTS "migrations" CASCADE`),
     ]);
+    await dataSource.query(
+      'DROP TYPE IF EXISTS "verification_tokens_type_enum"',
+    );
   });
 
   afterAll(async () => {
-    // The second test undoes the last migration, leaving token tables missing.
+    // The second test undoes the last migration, leaving the videos table missing.
     // Re-apply so the shared DB is fully migrated when subsequent suites run.
     await dataSource.runMigrations();
     await dataSource.destroy();
   });
 
-  it('should apply all migrations and create all four tables', async () => {
+  it('should apply all migrations and create all five tables', async () => {
     const ranMigrations = await dataSource.runMigrations();
 
-    expect(ranMigrations).toHaveLength(2);
+    expect(ranMigrations).toHaveLength(3);
 
     const result = await dataSource.query<{ table_name: string }[]>(
       `SELECT table_name FROM information_schema.tables
@@ -64,17 +71,18 @@ describe('Database migrations (integration)', () => {
       'refresh_tokens',
       'users',
       'verification_tokens',
+      'videos',
     ]);
   });
 
-  it('should revert the last migration and remove token tables', async () => {
+  it('should revert the last migration and remove video table', async () => {
     await dataSource.undoLastMigration();
 
     const result = await dataSource.query<{ table_name: string }[]>(
       `SELECT table_name FROM information_schema.tables
        WHERE table_schema = 'public'
          AND table_name = ANY($1::text[])`,
-      [['refresh_tokens', 'verification_tokens']],
+      [['videos']],
     );
     expect(result).toHaveLength(0);
   });

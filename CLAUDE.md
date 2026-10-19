@@ -12,7 +12,7 @@ This is a monorepo with two main areas:
 
 - `nestjs-project/` — Backend API (NestJS 11, TypeScript, Express). Contains modules for users, channels, videos, comments, etc.
 - `docs/` — Project documentation, architecture diagrams, and planning.
-- `next-frontend/` (Next.js) — not yet initialized
+- `next-frontend/` (Next.js) — Fases 01–02 fornecidas pela base; vídeo fora do escopo.
 
 ## Architecture (C4 Container Diagram)
 
@@ -23,7 +23,7 @@ See `docs/diagrams/software-arch.mermaid` for the full diagram. Key containers:
 - **Video Worker** (FFmpeg) → consumes jobs from queue, processes videos, updates DB and storage
 - **Database** (PostgreSQL) → users, channels, videos, comments, likes
 - **Object Storage** (S3/MinIO) → video files and thumbnails
-- **Message Queue** (TBD) → video processing job queue
+- **Message Queue** (BullMQ/Redis) → video processing job queue
 - **Email Service** (SMTP) → account confirmation and password recovery
 
 ## Docker Networking
@@ -105,3 +105,6 @@ Skip documentation lookup only for trivial operations such as:
 
 If a library is involved and there is uncertainty, documentation lookup is mandatory.
 If the documentation returned does not match the installed version, flag the discrepancy before proceeding.
+
+## Fase 03 — vídeos
+Implementação em `nestjs-project/src/videos/`, worker em `src/video-worker.ts`. Multipart direto MinIO, validação de partes, outbox em videos, fila BullMQ, FFmpeg/ffprobe, MP4 faststart e thumbnail. Contratos e estado real da validação em `docs/phases/phase-03-videos/`. Codex lê `AGENTS.md`; MCP de projeto em `.codex/config.toml`.
