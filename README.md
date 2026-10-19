@@ -36,7 +36,7 @@ O cliente usa no máximo uma parte de 64MiB de memória, assina lotes de até 16
 - `GET /videos/{slug}/thumbnail`: JPEG gerado do vídeo.
 - `GET /videos/{slug}/download`: original com `Content-Disposition: attachment`.
 
-Drafts/processing não são públicos. Signing, conclusão, cancelamento e status exigem o proprietário. A URL UUID é protegida por unicidade no banco. Falhas de processamento repetem até três vezes, com backoff; erro final aparece como `PROCESSING_FAILED`. Bytes e metadados de storage não são expostos nos DTOs públicos.
+Drafts/processing não são públicos. Signing, conclusão, cancelamento e status exigem o proprietário. A URL UUID é protegida por unicidade no banco. Falhas normais de processamento repetem até três vezes, com backoff; erro final aparece como `PROCESSING_FAILED`. O worker reconcilia o estado real da fila com o banco no início e a cada 2 segundos, incluindo falhas por stalls, eventos perdidos e reinícios. Updates condicionais preservam resultados `ready`; jobs ausentes são republicados com ID estável. Jobs terminais permanecem no Redis para permitir essa recuperação; a limpeza operacional só deve removê-los depois de confirmar estado terminal no banco. Bytes e metadados de storage não são expostos nos DTOs públicos.
 
 ## Verificação
 
@@ -45,19 +45,22 @@ cd nestjs-project
 sh scripts/verify-compose.sh
 ```
 
-O script cria o projeto Compose isolado `vertice-video-check`, executa unitários, integração, e2e, TypeScript e lint, e remove apenas seus próprios volumes ao terminar. Não execute contra dados de produção. A suíte e2e gera um vídeo sintético com FFmpeg, faz multipart real, processa via BullMQ/Redis e testa thumbnail, Range 206 e download. O limite de 10GB é testado como contrato; um upload físico desse volume exige arquivo real e capacidade de disco e está separado da suíte rápida.
+O script cria o projeto Compose isolado `vertice-video-check`, executa unitários, integração, e2e, TypeScript e lint, e remove apenas seus próprios volumes ao terminar. Não execute contra dados de produção. A suíte e2e gera um vídeo sintético com FFmpeg, faz multipart real, processa via BullMQ/Redis e testa thumbnail, Range 206 e download. O limite de 10GB também é testado como contrato. O smoke físico usa por padrão 64 MiB + 1024 bytes, divididos em duas partes reais, e confere o SHA-256 do download original. A massa é um MP4 sintético de um segundo acrescido de um atom `free` válido; prova transporte e limite de tamanho, sem representar 10GB de frames codificados.
 
-Ao final, o script inicia os processos compilados da API e do worker em containers separados e repete o fluxo de mídia via HTTP com `scripts/smoke-worker.mjs`. MinIO e seu cliente são compilados de releases oficiais fixos; a primeira execução leva mais tempo porque a edição comunitária passou a ser distribuída por código-fonte.
+Ao final, o script inicia os processos compilados da API e do worker em containers separados e repete o fluxo de mídia via HTTP com `scripts/smoke-worker.mjs`. Para medir 10GB físicos, use `SMOKE_VIDEO_BYTES=10000000000 sh scripts/verify-compose.sh`, com capacidade de disco para MinIO e temporário do worker. O cliente gera as partes sem gravar outro arquivo grande e baixa por streaming. MinIO e seu cliente são compilados de releases oficiais fixos; a primeira execução leva mais tempo porque a edição comunitária passou a ser distribuída por código-fonte.
 
 **Validação em 19/10/2026:** o Compose isolado aprovou 176 testes unitários/de integração, 56 e2e, TypeScript, lint sem erros e o fluxo real com API e worker em containers separados. O contrato de 10 GB foi testado sem transferir fisicamente esse volume. O [progresso](docs/phases/phase-03-videos/progress.md) e a [saída resumida da verificação](docs/phases/phase-03-videos/verification-output.txt) registram as evidências. O [OpenAPI exportado](nestjs-project/openapi.json) inclui os nove caminhos de vídeos. Não há submissão automática à plataforma.
 
+O [workflow de CI](.github/workflows/verify-video.yml) executa esse DoD em `ubuntu-24.04`, sem secrets externos, com logs de texto retidos por um dia. Depois do smoke padrão, tenta 10GB físicos somente se houver mais de 25GB livres no filesystem do Docker; o resultado explicita qualquer `SKIP`. A [validação da revisão](docs/tasks/task-video-reliability/ci-validation.md) distingue diagnóstico local de execução Docker e registra o resultado quando disponível.
+
 ## Decisões e uso de IA
 
-A fase foi conduzida com Codex em execução contínua, com pesquisa oficial, contexto, validação, plano e implementação sequencial. A instrução equivalente está em `AGENTS.md`, as skills locais em `.agents/skills`, e a configuração MCP é de projeto em `.codex/config.toml`. Context7 não esteve exposto nesta sessão; a pesquisa usou documentação oficial via web e registrou esse fallback.
+A fase foi conduzida com Codex em execução contínua, com pesquisa oficial, contexto, validação, plano e implementação sequencial. A instrução equivalente está em `AGENTS.md`, as skills locais em `.agents/skills`, e a configuração MCP é de projeto em `.codex/config.toml`. Na implementação original Context7 não esteve exposto, e a pesquisa registrou o fallback para documentação oficial via web. Na revisão de confiabilidade, o MCP Context7 foi consultado de fato antes das novas alterações, e as diferenças para as versões instaladas foram conferidas em [library-refs.md](docs/tasks/task-video-reliability/library-refs.md); essa consulta posterior não altera o registro histórico.
 
 - `docs/decisions/technical-decisions-phase-03-videos.md`: alternativas e escolhas.
 - `docs/phases/phase-03-videos/`: contexto, validação, referências, SIs/contratos e progresso.
+- [Revisão de confiabilidade](docs/tasks/task-video-reliability/progress.md): reconciliação de falhas terminais e evidências de multipart físico.
 - `nestjs-project/src/videos/`: domínio, repository, adapter S3 e processamento.
 - `nestjs-project/src/database/migrations/1792400000000-CreateVideos.ts`: schema da fase.
 
-A implementação da fase foi escrita a partir do enunciado e da base oficial, sem consulta a código de soluções de alunos. O desenvolvimento ocorre em `feature/video-pipeline`, derivada de `dev`.
+A implementação da fase foi escrita a partir do enunciado e da base oficial, sem consulta a código de soluções de alunos. A fase inicial passou por `feature/video-pipeline` → `dev` → `main`. A revisão usa `feature/video-final-fixes`, criada de `dev` após fast-forward para a entrega anterior. A comparação posterior com a referência de aluno foi uma revisão, não a origem do código da fase.
