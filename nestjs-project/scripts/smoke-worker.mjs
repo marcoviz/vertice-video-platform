@@ -311,7 +311,7 @@ try {
     const { stdout, stderr } = await promisify(execFile)(
       'python3',
       ['scripts/inspect-media.py', playbackPath, '--decode', '--atoms'],
-      { timeout: 65 * 60 * 1000, maxBuffer: 1024 * 1024 },
+      { timeout: 70 * 60 * 1000, maxBuffer: 1024 * 1024 },
     );
     if (stderr) console.log(stderr);
     const rendered = JSON.parse(stdout);

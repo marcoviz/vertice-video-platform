@@ -17,6 +17,7 @@ cleanup_real() {
   for name in input-evidence.json result.json; do
     if [ -f "$fixture_dir/$name" ]; then cp "$fixture_dir/$name" "$evidence_dir/$name"; fi
   done
+  if [ -f "$evidence_dir/resources.log" ]; then cat "$evidence_dir/resources.log"; fi
   rm -rf "$fixture_dir"
 }
 trap cleanup_real EXIT INT TERM
