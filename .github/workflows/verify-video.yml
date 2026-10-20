@@ -2,7 +2,7 @@ name: Verify video platform
 
 on:
   push:
-    branches: [main, dev, feature/video-final-fixes]
+    branches: [main, dev, feature/video-final-fixes, feature/video-real-10gb]
   workflow_dispatch:
 
 permissions:
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   docker-validation:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 120
     defaults:
       run:
         shell: bash
@@ -38,6 +38,7 @@ jobs:
       - name: Run the complete Docker verification
         env:
           VERIFY_10GB_IF_SPACE: "1"
+          VERIFY_REAL_VIDEO: "1"
           SMOKE_VIDEO_BYTES: "67109888"
         run: |
           set -euo pipefail
@@ -69,6 +70,7 @@ jobs:
           path: |
             validation-logs/*.txt
             validation-logs/*.log
+            validation-logs/real-video/*
           if-no-files-found: warn
-          retention-days: 1
+          retention-days: 7
           compression-level: 9

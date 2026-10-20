@@ -50,5 +50,8 @@ if [ "${VERIFY_10GB_IF_SPACE:-0}" = 1 ]; then
     echo "SKIP: physical 10 GB smoke; Docker filesystem free=$available_bytes bytes, requires >25000000000"
   fi
 fi
+if [ "${VERIFY_REAL_VIDEO:-0}" = 1 ]; then
+  sh scripts/verify-real-video.sh
+fi
 docker compose ps
 docker compose run --rm --no-deps nestjs-api ffmpeg -version

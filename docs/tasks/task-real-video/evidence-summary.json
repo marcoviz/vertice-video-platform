@@ -1,0 +1,301 @@
+{
+  "source_commit": "5d1fe456cfbac330aa192d27fb5455287cfa4887",
+  "ci": {
+    "run_id": 39345912643,
+    "job_id": 118378524699,
+    "url": "https://github.com/marcoviz/vertice-video-platform/actions/runs/39345912643",
+    "status": "completed",
+    "conclusion": "success",
+    "runner": "ubuntu-24.04",
+    "artifact_id": 12231771511,
+    "artifact_retention_days": 7,
+    "artifact_url": "https://github.com/marcoviz/vertice-video-platform/actions/runs/39345912643/artifacts/12231771511"
+  },
+  "checks": {
+    "unit_integration_passed": 183,
+    "e2e_passed": 56,
+    "typescript": "passed",
+    "prettier": "passed",
+    "eslint_errors": 0,
+    "eslint_warnings": 23,
+    "previous_exact_size_smoke": {
+      "passed": true,
+      "bytes": 10000000000,
+      "elapsed_ms": 153484
+    },
+    "small_multipart_smoke": {
+      "passed": true,
+      "bytes": 67109888,
+      "elapsed_ms": 3288
+    }
+  },
+  "real_video": {
+    "passed": true,
+    "input": {
+      "source": {
+        "title": "Tears of Steel",
+        "creator": "Blender Foundation",
+        "url": "https://media.xiph.org/tearsofsteel/tears_of_steel_1080p.webm",
+        "sha256": "328253280a05e6b14a92f1f43d818d9b7d38ab5d3f6d5d98606198fd3daef2ff",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/",
+        "credits": "https://mango.blender.org/",
+        "adaptation": "Contiguous opening excerpt, letterboxed to 1920x1080/25fps, DNxHD 185M + stereo PCM. No scene loops, synthetic footage or byte padding."
+      },
+      "command": [
+        "ffmpeg",
+        "-nostdin",
+        "-v",
+        "error",
+        "-y",
+        "-threads",
+        "2",
+        "-i",
+        "/fixtures/tears_of_steel_1080p.webm",
+        "-map",
+        "0:v:0",
+        "-map",
+        "0:a:0",
+        "-filter_threads",
+        "2",
+        "-vf",
+        "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=25",
+        "-c:v",
+        "dnxhd",
+        "-b:v",
+        "185M",
+        "-pix_fmt",
+        "yuv422p",
+        "-threads",
+        "2",
+        "-c:a",
+        "pcm_s16le",
+        "-ac",
+        "2",
+        "-ar",
+        "48000",
+        "-metadata",
+        "title=Tears of Steel — validation excerpt",
+        "-metadata",
+        "artist=Blender Foundation",
+        "-metadata",
+        "copyright=CC BY 3.0 — https://mango.blender.org/",
+        "-fs",
+        "9997000000",
+        "-progress",
+        "pipe:1",
+        "-stats_period",
+        "30",
+        "/fixtures/tears-of-steel-dnxhd.mov"
+      ],
+      "target_limit_bytes": 10000000000,
+      "bytes": 9999648760,
+      "distance_to_limit_bytes": 351240,
+      "sha256": "1efa82bebe8ed6d9e2743132dc14a9f381349231a67b88595a895d105bf0f153",
+      "media": {
+        "programs": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "dnxhd",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "r_frame_rate": "25/1",
+            "duration": "432.320000",
+            "nb_frames": "10808"
+          },
+          {
+            "index": 1,
+            "codec_name": "pcm_s16le",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "duration": "432.372167",
+            "nb_frames": "20754048"
+          }
+        ],
+        "format": {
+          "duration": "432.375000",
+          "size": "9999648760",
+          "bit_rate": "185018074"
+        },
+        "packet_totals": {
+          "0": {
+            "packets": 10808,
+            "bytes": 9916383232
+          },
+          "1": {
+            "packets": 21809,
+            "bytes": 83016192
+          }
+        },
+        "av_packet_bytes": 9999399424,
+        "av_fraction": 0.9999750655242015,
+        "atoms": [
+          {
+            "type": "ftyp",
+            "offset": 0,
+            "bytes": 20
+          },
+          {
+            "type": "mdat",
+            "offset": 20,
+            "bytes": 9999399440
+          },
+          {
+            "type": "moov",
+            "offset": 9999399460,
+            "bytes": 249300
+          }
+        ],
+        "full_decode": {
+          "passed": true,
+          "frames": 10808,
+          "output_time": "00:07:12.378000",
+          "elapsed_seconds": 35.057
+        }
+      },
+      "preparation_elapsed_seconds": 129.633,
+      "ffmpeg": "ffmpeg version 5.1.9-0+deb12u1 Copyright (c) 2000-2026 the FFmpeg developers"
+    },
+    "uploadedBytes": 9999648760,
+    "multipartParts": 150,
+    "originalDownloadSha256": "1efa82bebe8ed6d9e2743132dc14a9f381349231a67b88595a895d105bf0f153",
+    "originalDownloadBytes": 9999648760,
+    "playback": {
+      "programs": [],
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "25/1",
+          "duration": "432.320000",
+          "nb_frames": "10808"
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0",
+          "duration": "432.378000",
+          "nb_frames": "20269"
+        }
+      ],
+      "format": {
+        "duration": "432.378000",
+        "size": "142594943",
+        "bit_rate": "2638338"
+      },
+      "packet_totals": {
+        "0": {
+          "packets": 10808,
+          "bytes": 135234481
+        },
+        "1": {
+          "packets": 20269,
+          "bytes": 7030780
+        }
+      },
+      "av_packet_bytes": 142265261,
+      "av_fraction": 0.9976879825254392,
+      "atoms": [
+        {
+          "type": "ftyp",
+          "offset": 0,
+          "bytes": 32
+        },
+        {
+          "type": "moov",
+          "offset": 32,
+          "bytes": 329634
+        },
+        {
+          "type": "free",
+          "offset": 329666,
+          "bytes": 8
+        },
+        {
+          "type": "mdat",
+          "offset": 329674,
+          "bytes": 142265269
+        }
+      ],
+      "full_decode": {
+        "passed": true,
+        "frames": 10808,
+        "output_time": "00:07:12.386000",
+        "elapsed_seconds": 18.748
+      }
+    },
+    "queue": {
+      "state": "completed",
+      "attemptsMade": 1,
+      "attemptsStarted": 1
+    },
+    "ranges": [
+      {
+        "offset": 0,
+        "end": 1023,
+        "status": 206,
+        "bytesMatch": true
+      },
+      {
+        "offset": 71297471,
+        "end": 71298494,
+        "status": 206,
+        "bytesMatch": true
+      },
+      {
+        "offset": 142593919,
+        "end": 142594942,
+        "status": 206,
+        "bytesMatch": true
+      }
+    ],
+    "thumbnail": {
+      "status": 200,
+      "contentType": "image/jpeg",
+      "decoded": true
+    },
+    "apiLatency": {
+      "samples": 191,
+      "maxMs": 14.04426699999749,
+      "p95Ms": 4.071953000006033,
+      "failures": 0
+    },
+    "elapsedMs": 383503,
+    "processingMs": 274250,
+    "afterCompleteElapsedMs": 314429
+  },
+  "resources": {
+    "nestjs-api": {
+      "samples": 72,
+      "maxSampledMemoryMiB": 121.9,
+      "maxSampledCpuPercent": 14.46
+    },
+    "video-worker": {
+      "samples": 72,
+      "maxSampledMemoryMiB": 540.0,
+      "maxSampledCpuPercent": 207.68
+    }
+  },
+  "oom_killed": false,
+  "container_restarts": 0,
+  "resource_note": "These are sampled maxima, not absolute peaks. CPU 100% represents one core.",
+  "log": {
+    "bytes": 347862,
+    "sha256": "dce482f645180b6240a0fa5096f8e355047e01daee96a6707d529fd2144ebf9c"
+  },
+  "fullcycle_submitted": false,
+  "docker_free_bytes_before_real_test": 93502582784,
+  "recorded_at": "2026-10-20T00:25:22Z",
+  "definition_of_done": "passed; successful CI conclusion confirmed and all assertions/resource records extracted from complete job log",
+  "runtime_application_changed": false
+}

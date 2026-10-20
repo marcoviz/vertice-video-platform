@@ -1,0 +1,216 @@
+2026-10-20T00:25:19.7957598Z REAL_RESOURCE_SAMPLE 2026-10-20T00:18:55Z
+2026-10-20T00:25:19.7958033Z vertice-video-check-nestjs-api-1 memory=100.7MiB / 15.61GiB cpu=11.30% network=162kB / 237kB
+2026-10-20T00:25:19.7958581Z vertice-video-check-video-worker-1 memory=146.3MiB / 2GiB cpu=0.09% network=10.1GB / 5.19MB
+2026-10-20T00:25:19.7958975Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:00Z
+2026-10-20T00:25:19.7959554Z vertice-video-check-nestjs-api-1 memory=100.2MiB / 15.61GiB cpu=0.01% network=164kB / 239kB
+2026-10-20T00:25:19.7960073Z vertice-video-check-video-worker-1 memory=146.3MiB / 2GiB cpu=0.22% network=10.1GB / 5.19MB
+2026-10-20T00:25:19.7960577Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:06Z
+2026-10-20T00:25:19.7960808Z vertice-video-check-nestjs-api-1 memory=101.2MiB / 15.61GiB cpu=0.01% network=168kB / 253kB
+2026-10-20T00:25:19.7961132Z vertice-video-check-video-worker-1 memory=146.6MiB / 2GiB cpu=0.11% network=10.1GB / 5.19MB
+2026-10-20T00:25:19.7961448Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:10Z
+2026-10-20T00:25:19.7961676Z vertice-video-check-nestjs-api-1 memory=101.4MiB / 15.61GiB cpu=0.01% network=173kB / 266kB
+2026-10-20T00:25:19.7961994Z vertice-video-check-video-worker-1 memory=146.3MiB / 2GiB cpu=0.00% network=10.1GB / 5.2MB
+2026-10-20T00:25:19.7962231Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:15Z
+2026-10-20T00:25:19.7962465Z vertice-video-check-nestjs-api-1 memory=102MiB / 15.61GiB cpu=0.69% network=177kB / 280kB
+2026-10-20T00:25:19.7962788Z vertice-video-check-video-worker-1 memory=146.3MiB / 2GiB cpu=0.09% network=10.1GB / 5.2MB
+2026-10-20T00:25:19.7963025Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:20Z
+2026-10-20T00:25:19.7963256Z vertice-video-check-nestjs-api-1 memory=101.7MiB / 15.61GiB cpu=0.09% network=179kB / 282kB
+2026-10-20T00:25:19.7963570Z vertice-video-check-video-worker-1 memory=146.3MiB / 2GiB cpu=0.00% network=10.1GB / 5.2MB
+2026-10-20T00:25:19.7963806Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:26Z
+2026-10-20T00:25:19.7964031Z vertice-video-check-nestjs-api-1 memory=101.2MiB / 15.61GiB cpu=0.01% network=184kB / 296kB
+2026-10-20T00:25:19.7964594Z vertice-video-check-video-worker-1 memory=146.6MiB / 2GiB cpu=0.20% network=10.1GB / 5.21MB
+2026-10-20T00:25:19.7964835Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:32Z
+2026-10-20T00:25:19.7965064Z vertice-video-check-nestjs-api-1 memory=101.7MiB / 15.61GiB cpu=0.09% network=188kB / 309kB
+2026-10-20T00:25:19.7965385Z vertice-video-check-video-worker-1 memory=146.6MiB / 2GiB cpu=0.00% network=10.1GB / 5.21MB
+2026-10-20T00:25:19.7965621Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:37Z
+2026-10-20T00:25:19.7965848Z vertice-video-check-nestjs-api-1 memory=102.2MiB / 15.61GiB cpu=0.98% network=192kB / 323kB
+2026-10-20T00:25:19.7966167Z vertice-video-check-video-worker-1 memory=146.6MiB / 2GiB cpu=0.01% network=10.1GB / 5.22MB
+2026-10-20T00:25:19.7966405Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:43Z
+2026-10-20T00:25:19.7966659Z vertice-video-check-nestjs-api-1 memory=101.3MiB / 15.61GiB cpu=0.00% network=194kB / 324kB
+2026-10-20T00:25:19.7966973Z vertice-video-check-video-worker-1 memory=146.9MiB / 2GiB cpu=0.09% network=10.1GB / 5.22MB
+2026-10-20T00:25:19.7967209Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:48Z
+2026-10-20T00:25:19.7967436Z vertice-video-check-nestjs-api-1 memory=101.6MiB / 15.61GiB cpu=0.07% network=198kB / 338kB
+2026-10-20T00:25:19.7967753Z vertice-video-check-video-worker-1 memory=144.9MiB / 2GiB cpu=0.00% network=10.1GB / 5.22MB
+2026-10-20T00:25:19.7967991Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:54Z
+2026-10-20T00:25:19.7968221Z vertice-video-check-nestjs-api-1 memory=101.4MiB / 15.61GiB cpu=0.08% network=202kB / 352kB
+2026-10-20T00:25:19.7968539Z vertice-video-check-video-worker-1 memory=144.9MiB / 2GiB cpu=0.00% network=10.1GB / 5.23MB
+2026-10-20T00:25:19.7968780Z REAL_RESOURCE_SAMPLE 2026-10-20T00:19:59Z
+2026-10-20T00:25:19.7969007Z vertice-video-check-nestjs-api-1 memory=101.4MiB / 15.61GiB cpu=0.01% network=204kB / 353kB
+2026-10-20T00:25:19.7969322Z vertice-video-check-video-worker-1 memory=145.1MiB / 2GiB cpu=0.09% network=10.1GB / 5.23MB
+2026-10-20T00:25:19.7969560Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:05Z
+2026-10-20T00:25:19.7969784Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=1.84% network=251kB / 383kB
+2026-10-20T00:25:19.7970105Z vertice-video-check-video-worker-1 memory=200.5MiB / 2GiB cpu=131.13% network=10.4GB / 5.48MB
+2026-10-20T00:25:19.7970349Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:10Z
+2026-10-20T00:25:19.7970690Z vertice-video-check-nestjs-api-1 memory=102.6MiB / 15.61GiB cpu=0.02% network=253kB / 385kB
+2026-10-20T00:25:19.7971011Z vertice-video-check-video-worker-1 memory=241.6MiB / 2GiB cpu=4.55% network=11.8GB / 6.29MB
+2026-10-20T00:25:19.7971333Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:16Z
+2026-10-20T00:25:19.7971559Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=8.82% network=256kB / 387kB
+2026-10-20T00:25:19.7971881Z vertice-video-check-video-worker-1 memory=191.7MiB / 2GiB cpu=172.60% network=12.5GB / 6.62MB
+2026-10-20T00:25:19.7972122Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:21Z
+2026-10-20T00:25:19.7972351Z vertice-video-check-nestjs-api-1 memory=102.6MiB / 15.61GiB cpu=9.56% network=258kB / 389kB
+2026-10-20T00:25:19.7972673Z vertice-video-check-video-worker-1 memory=196.7MiB / 2GiB cpu=149.50% network=13.1GB / 6.94MB
+2026-10-20T00:25:19.7972912Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:26Z
+2026-10-20T00:25:19.7973137Z vertice-video-check-nestjs-api-1 memory=106.2MiB / 15.61GiB cpu=1.47% network=259kB / 391kB
+2026-10-20T00:25:19.7973456Z vertice-video-check-video-worker-1 memory=201.1MiB / 2GiB cpu=134.65% network=13.9GB / 7.29MB
+2026-10-20T00:25:19.7973696Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:30Z
+2026-10-20T00:25:19.7973923Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=7.00% network=261kB / 392kB
+2026-10-20T00:25:19.7974245Z vertice-video-check-video-worker-1 memory=208.6MiB / 2GiB cpu=102.90% network=14.3GB / 7.48MB
+2026-10-20T00:25:19.7974612Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:36Z
+2026-10-20T00:25:19.7974842Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.18% network=262kB / 394kB
+2026-10-20T00:25:19.7975159Z vertice-video-check-video-worker-1 memory=200.7MiB / 2GiB cpu=0.01% network=15.3GB / 7.92MB
+2026-10-20T00:25:19.7975397Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:41Z
+2026-10-20T00:25:19.7975623Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.01% network=264kB / 395kB
+2026-10-20T00:25:19.7975943Z vertice-video-check-video-worker-1 memory=202.4MiB / 2GiB cpu=4.77% network=16GB / 8.28MB
+2026-10-20T00:25:19.7976178Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:47Z
+2026-10-20T00:25:19.7976405Z vertice-video-check-nestjs-api-1 memory=102.9MiB / 15.61GiB cpu=0.08% network=265kB / 397kB
+2026-10-20T00:25:19.7976726Z vertice-video-check-video-worker-1 memory=205.7MiB / 2GiB cpu=0.15% network=16.7GB / 8.61MB
+2026-10-20T00:25:19.7976964Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:52Z
+2026-10-20T00:25:19.7977191Z vertice-video-check-nestjs-api-1 memory=102.7MiB / 15.61GiB cpu=0.12% network=267kB / 398kB
+2026-10-20T00:25:19.7977507Z vertice-video-check-video-worker-1 memory=218.5MiB / 2GiB cpu=0.01% network=17.5GB / 8.99MB
+2026-10-20T00:25:19.7977745Z REAL_RESOURCE_SAMPLE 2026-10-20T00:20:58Z
+2026-10-20T00:25:19.7977971Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.00% network=268kB / 399kB
+2026-10-20T00:25:19.7978287Z vertice-video-check-video-worker-1 memory=216.1MiB / 2GiB cpu=5.60% network=18.4GB / 9.41MB
+2026-10-20T00:25:19.7978525Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:03Z
+2026-10-20T00:25:19.7978753Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.01% network=270kB / 401kB
+2026-10-20T00:25:19.7979070Z vertice-video-check-video-worker-1 memory=215.9MiB / 2GiB cpu=4.96% network=19.2GB / 9.76MB
+2026-10-20T00:25:19.7979312Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:09Z
+2026-10-20T00:25:19.7979539Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=0.07% network=271kB / 402kB
+2026-10-20T00:25:19.7979854Z vertice-video-check-video-worker-1 memory=220MiB / 2GiB cpu=0.20% network=19.9GB / 10.1MB
+2026-10-20T00:25:19.7980092Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:13Z
+2026-10-20T00:25:19.7980322Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.01% network=272kB / 403kB
+2026-10-20T00:25:19.7980641Z vertice-video-check-video-worker-1 memory=540MiB / 2GiB cpu=204.37% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7980880Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:19Z
+2026-10-20T00:25:19.7981206Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=0.01% network=274kB / 405kB
+2026-10-20T00:25:19.7981529Z vertice-video-check-video-worker-1 memory=538.3MiB / 2GiB cpu=201.74% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7981771Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:24Z
+2026-10-20T00:25:19.7982076Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=0.07% network=275kB / 406kB
+2026-10-20T00:25:19.7982395Z vertice-video-check-video-worker-1 memory=519.1MiB / 2GiB cpu=200.47% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7982636Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:30Z
+2026-10-20T00:25:19.7982863Z vertice-video-check-nestjs-api-1 memory=102.9MiB / 15.61GiB cpu=0.07% network=277kB / 407kB
+2026-10-20T00:25:19.7983182Z vertice-video-check-video-worker-1 memory=512.2MiB / 2GiB cpu=201.22% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7983424Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:36Z
+2026-10-20T00:25:19.7983655Z vertice-video-check-nestjs-api-1 memory=103.3MiB / 15.61GiB cpu=0.08% network=278kB / 409kB
+2026-10-20T00:25:19.7983980Z vertice-video-check-video-worker-1 memory=504.8MiB / 2GiB cpu=202.51% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7984220Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:41Z
+2026-10-20T00:25:19.7984567Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.01% network=279kB / 410kB
+2026-10-20T00:25:19.7984890Z vertice-video-check-video-worker-1 memory=484.9MiB / 2GiB cpu=204.42% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7985130Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:47Z
+2026-10-20T00:25:19.7985361Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.00% network=281kB / 411kB
+2026-10-20T00:25:19.7985682Z vertice-video-check-video-worker-1 memory=486.6MiB / 2GiB cpu=201.00% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7985926Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:51Z
+2026-10-20T00:25:19.7986154Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.01% network=282kB / 413kB
+2026-10-20T00:25:19.7986472Z vertice-video-check-video-worker-1 memory=486.2MiB / 2GiB cpu=201.50% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7986714Z REAL_RESOURCE_SAMPLE 2026-10-20T00:21:57Z
+2026-10-20T00:25:19.7986940Z vertice-video-check-nestjs-api-1 memory=121.9MiB / 15.61GiB cpu=8.51% network=284kB / 415kB
+2026-10-20T00:25:19.7987259Z vertice-video-check-video-worker-1 memory=485.9MiB / 2GiB cpu=202.79% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7987501Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:02Z
+2026-10-20T00:25:19.7987727Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=7.96% network=286kB / 416kB
+2026-10-20T00:25:19.7988055Z vertice-video-check-video-worker-1 memory=484.8MiB / 2GiB cpu=203.95% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7988322Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:08Z
+2026-10-20T00:25:19.7988554Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=9.13% network=287kB / 417kB
+2026-10-20T00:25:19.7988897Z vertice-video-check-video-worker-1 memory=484MiB / 2GiB cpu=199.95% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7989136Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:13Z
+2026-10-20T00:25:19.7989364Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=0.01% network=288kB / 418kB
+2026-10-20T00:25:19.7989683Z vertice-video-check-video-worker-1 memory=483.4MiB / 2GiB cpu=187.16% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7989925Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:19Z
+2026-10-20T00:25:19.7990151Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=8.99% network=289kB / 420kB
+2026-10-20T00:25:19.7990471Z vertice-video-check-video-worker-1 memory=484.1MiB / 2GiB cpu=203.23% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7990712Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:24Z
+2026-10-20T00:25:19.7990937Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=0.01% network=291kB / 421kB
+2026-10-20T00:25:19.7991256Z vertice-video-check-video-worker-1 memory=483.7MiB / 2GiB cpu=205.03% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7991496Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:30Z
+2026-10-20T00:25:19.7991815Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.00% network=292kB / 422kB
+2026-10-20T00:25:19.7992136Z vertice-video-check-video-worker-1 memory=480.9MiB / 2GiB cpu=202.16% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7992379Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:35Z
+2026-10-20T00:25:19.7992690Z vertice-video-check-nestjs-api-1 memory=103.3MiB / 15.61GiB cpu=0.09% network=294kB / 424kB
+2026-10-20T00:25:19.7993016Z vertice-video-check-video-worker-1 memory=480.3MiB / 2GiB cpu=202.21% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7993258Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:41Z
+2026-10-20T00:25:19.7993484Z vertice-video-check-nestjs-api-1 memory=102.8MiB / 15.61GiB cpu=0.10% network=295kB / 425kB
+2026-10-20T00:25:19.7993808Z vertice-video-check-video-worker-1 memory=482.5MiB / 2GiB cpu=201.95% network=20.1GB / 10.2MB
+2026-10-20T00:25:19.7994051Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:46Z
+2026-10-20T00:25:19.7994281Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=0.01% network=297kB / 426kB
+2026-10-20T00:25:19.7994773Z vertice-video-check-video-worker-1 memory=482MiB / 2GiB cpu=207.68% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.7995012Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:52Z
+2026-10-20T00:25:19.7995240Z vertice-video-check-nestjs-api-1 memory=102.9MiB / 15.61GiB cpu=0.15% network=298kB / 428kB
+2026-10-20T00:25:19.7995568Z vertice-video-check-video-worker-1 memory=481.6MiB / 2GiB cpu=201.17% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.7995810Z REAL_RESOURCE_SAMPLE 2026-10-20T00:22:56Z
+2026-10-20T00:25:19.7996036Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=0.11% network=300kB / 429kB
+2026-10-20T00:25:19.7996354Z vertice-video-check-video-worker-1 memory=481.4MiB / 2GiB cpu=202.84% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.7996594Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:02Z
+2026-10-20T00:25:19.7996820Z vertice-video-check-nestjs-api-1 memory=102.9MiB / 15.61GiB cpu=0.02% network=301kB / 430kB
+2026-10-20T00:25:19.7997137Z vertice-video-check-video-worker-1 memory=480.7MiB / 2GiB cpu=202.82% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.7997382Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:07Z
+2026-10-20T00:25:19.7997607Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=0.00% network=302kB / 432kB
+2026-10-20T00:25:19.7997927Z vertice-video-check-video-worker-1 memory=480.3MiB / 2GiB cpu=201.89% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.7998166Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:13Z
+2026-10-20T00:25:19.7998394Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=0.01% network=304kB / 433kB
+2026-10-20T00:25:19.7998715Z vertice-video-check-video-worker-1 memory=479.8MiB / 2GiB cpu=200.94% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.7998954Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:19Z
+2026-10-20T00:25:19.7999182Z vertice-video-check-nestjs-api-1 memory=102.9MiB / 15.61GiB cpu=0.00% network=305kB / 434kB
+2026-10-20T00:25:19.7999507Z vertice-video-check-video-worker-1 memory=479.5MiB / 2GiB cpu=203.43% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.7999753Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:23Z
+2026-10-20T00:25:19.7999981Z vertice-video-check-nestjs-api-1 memory=102.9MiB / 15.61GiB cpu=0.02% network=306kB / 436kB
+2026-10-20T00:25:19.8000299Z vertice-video-check-video-worker-1 memory=479.1MiB / 2GiB cpu=202.09% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8000541Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:29Z
+2026-10-20T00:25:19.8000770Z vertice-video-check-nestjs-api-1 memory=102.9MiB / 15.61GiB cpu=0.00% network=307kB / 437kB
+2026-10-20T00:25:19.8001092Z vertice-video-check-video-worker-1 memory=478.1MiB / 2GiB cpu=200.38% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8001331Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:34Z
+2026-10-20T00:25:19.8001562Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=9.12% network=310kB / 439kB
+2026-10-20T00:25:19.8001887Z vertice-video-check-video-worker-1 memory=477.9MiB / 2GiB cpu=201.53% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8002130Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:40Z
+2026-10-20T00:25:19.8002449Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=8.61% network=311kB / 440kB
+2026-10-20T00:25:19.8002773Z vertice-video-check-video-worker-1 memory=477.4MiB / 2GiB cpu=205.93% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8003014Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:45Z
+2026-10-20T00:25:19.8003319Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=0.01% network=312kB / 442kB
+2026-10-20T00:25:19.8003639Z vertice-video-check-video-worker-1 memory=476.7MiB / 2GiB cpu=203.35% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8003879Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:51Z
+2026-10-20T00:25:19.8004112Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=9.49% network=314kB / 443kB
+2026-10-20T00:25:19.8004604Z vertice-video-check-video-worker-1 memory=475.9MiB / 2GiB cpu=202.08% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8004858Z REAL_RESOURCE_SAMPLE 2026-10-20T00:23:56Z
+2026-10-20T00:25:19.8005086Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.22% network=315kB / 445kB
+2026-10-20T00:25:19.8005411Z vertice-video-check-video-worker-1 memory=475.4MiB / 2GiB cpu=202.48% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8005652Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:02Z
+2026-10-20T00:25:19.8005877Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.00% network=317kB / 446kB
+2026-10-20T00:25:19.8006195Z vertice-video-check-video-worker-1 memory=475MiB / 2GiB cpu=202.72% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8006433Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:07Z
+2026-10-20T00:25:19.8006661Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.01% network=318kB / 447kB
+2026-10-20T00:25:19.8006981Z vertice-video-check-video-worker-1 memory=474.3MiB / 2GiB cpu=202.03% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8007221Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:13Z
+2026-10-20T00:25:19.8007443Z vertice-video-check-nestjs-api-1 memory=103MiB / 15.61GiB cpu=0.00% network=319kB / 448kB
+2026-10-20T00:25:19.8007762Z vertice-video-check-video-worker-1 memory=473.9MiB / 2GiB cpu=202.48% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8008003Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:18Z
+2026-10-20T00:25:19.8008229Z vertice-video-check-nestjs-api-1 memory=103.3MiB / 15.61GiB cpu=0.08% network=321kB / 450kB
+2026-10-20T00:25:19.8008551Z vertice-video-check-video-worker-1 memory=473.2MiB / 2GiB cpu=202.46% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8008791Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:24Z
+2026-10-20T00:25:19.8009016Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.08% network=322kB / 451kB
+2026-10-20T00:25:19.8009336Z vertice-video-check-video-worker-1 memory=472.4MiB / 2GiB cpu=204.90% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8009577Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:29Z
+2026-10-20T00:25:19.8009804Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.09% network=324kB / 453kB
+2026-10-20T00:25:19.8010126Z vertice-video-check-video-worker-1 memory=472.2MiB / 2GiB cpu=201.23% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8010371Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:34Z
+2026-10-20T00:25:19.8010603Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=0.09% network=325kB / 454kB
+2026-10-20T00:25:19.8010924Z vertice-video-check-video-worker-1 memory=471.6MiB / 2GiB cpu=202.25% network=20.1GB / 10.3MB
+2026-10-20T00:25:19.8011169Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:39Z
+2026-10-20T00:25:19.8011394Z vertice-video-check-nestjs-api-1 memory=103.3MiB / 15.61GiB cpu=0.02% network=334kB / 465kB
+2026-10-20T00:25:19.8011711Z vertice-video-check-video-worker-1 memory=124.7MiB / 2GiB cpu=0.23% network=20.1GB / 154MB
+2026-10-20T00:25:19.8011948Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:45Z
+2026-10-20T00:25:19.8012172Z vertice-video-check-nestjs-api-1 memory=103.3MiB / 15.61GiB cpu=0.19% network=337kB / 467kB
+2026-10-20T00:25:19.8012486Z vertice-video-check-video-worker-1 memory=124.4MiB / 2GiB cpu=0.00% network=20.1GB / 154MB
+2026-10-20T00:25:19.8012725Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:50Z
+2026-10-20T00:25:19.8013043Z vertice-video-check-nestjs-api-1 memory=103.1MiB / 15.61GiB cpu=0.01% network=337kB / 468kB
+2026-10-20T00:25:19.8013359Z vertice-video-check-video-worker-1 memory=124.2MiB / 2GiB cpu=0.07% network=20.1GB / 154MB
+2026-10-20T00:25:19.8013599Z REAL_RESOURCE_SAMPLE 2026-10-20T00:24:56Z
+2026-10-20T00:25:19.8013902Z vertice-video-check-nestjs-api-1 memory=103.5MiB / 15.61GiB cpu=8.38% network=340kB / 470kB
+2026-10-20T00:25:19.8014217Z vertice-video-check-video-worker-1 memory=124.4MiB / 2GiB cpu=0.10% network=20.1GB / 154MB
+2026-10-20T00:25:19.8014640Z REAL_RESOURCE_SAMPLE 2026-10-20T00:25:02Z
+2026-10-20T00:25:19.8014868Z vertice-video-check-nestjs-api-1 memory=103.3MiB / 15.61GiB cpu=5.05% network=344kB / 474kB
+2026-10-20T00:25:19.8015186Z vertice-video-check-video-worker-1 memory=124.4MiB / 2GiB cpu=0.14% network=20.1GB / 154MB
+2026-10-20T00:25:19.8015421Z REAL_RESOURCE_SAMPLE 2026-10-20T00:25:07Z
+2026-10-20T00:25:19.8015646Z vertice-video-check-nestjs-api-1 memory=103.2MiB / 15.61GiB cpu=9.48% network=345kB / 476kB
+2026-10-20T00:25:19.8015962Z vertice-video-check-video-worker-1 memory=124.2MiB / 2GiB cpu=0.28% network=20.1GB / 154MB
+2026-10-20T00:25:19.8016195Z REAL_RESOURCE_SAMPLE 2026-10-20T00:25:13Z
+2026-10-20T00:25:19.8016424Z vertice-video-check-nestjs-api-1 memory=103.5MiB / 15.61GiB cpu=14.46% network=346kB / 477kB
+2026-10-20T00:25:19.8016746Z vertice-video-check-video-worker-1 memory=124.4MiB / 2GiB cpu=0.00% network=20.1GB / 154MB
+2026-10-20T00:25:19.8016980Z REAL_RESOURCE_SAMPLE 2026-10-20T00:25:17Z
+2026-10-20T00:25:19.8017210Z vertice-video-check-nestjs-api-1 memory=103.6MiB / 15.61GiB cpu=10.06% network=348kB / 478kB
+2026-10-20T00:25:19.8017530Z vertice-video-check-video-worker-1 memory=124.2MiB / 2GiB cpu=0.00% network=20.1GB / 154MB
